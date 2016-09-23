@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model>
+	<instanceLayer>
+		<entities>
+			<entity name="partner_i">
+				<columns>
+					<column name="ico" origin="source" type="string" size="200"/>
+					<column name="src_zisk" origin="source" type="string" size="200"/>
+					<column name="std_zisk" origin="clean" type="string" size="200"/>
+					<column name="cio_zisk" origin="clean" type="string" size="200"/>
+					<column name="mat_ico" origin="match" type="string" size="200"/>
+					<column name="jmeno" origin="copy_match" type="string" size="200">
+						<valueSource columnName="src_jmeno" relationshipName="new_relationship">
+							<aggregation class="com.ataccama.nme.engine.model.FirstValue"/>
+						</valueSource>
+					</column>
+					<column name="adresa" origin="copy_match" type="string" size="200">
+						<valueSource columnName="src_adresa" relationshipName="new_relationship">
+							<aggregation class="com.ataccama.nme.engine.model.FirstValue"/>
+						</valueSource>
+					</column>
+				</columns>
+				<relationships>
+					<rel foreignKeyColumn="ico" name="new_relationship" parentColumn="source_id" parentEntity="rd_ico" reverseName="rev_new_relationship">
+						<type class="com.ataccama.nme.engine.model.CrossSystemRelationship"/>
+					</rel>
+				</relationships>
+				<matchingOperation enableIdentify="false" planFileName="../engine/trans/partner_i/partner_i_match.comp" class="com.ataccama.nme.dqc.mdu.MduMatchingPlan">
+					<matchings>
+						<matching name="k">
+							<masterIdColumn>master_id</masterIdColumn>
+							<isolateFlagColumn>isolate_flag</isolateFlagColumn>
+							<rematchFlagColumn>rematch_flag</rematchFlagColumn>
+						</matching>
+					</matchings>
+				</matchingOperation>
+				<cleansingOperation class="com.ataccama.nme.dqc.operations.CleansingPlan" planFileName="../engine/trans/partner_i/partner_i_clean.comp"/>
+			</entity>
+			<entity name="rd_ico">
+				<columns>
+					<column name="src_jmeno" origin="source" type="string" size="200"/>
+					<column name="std_jmeno" origin="clean" type="string" size="200"/>
+					<column name="cio_jmeno" origin="clean" type="string" size="200"/>
+					<column name="src_adresa" origin="source" type="string" size="200"/>
+					<column name="std_adresa" origin="clean" type="string" size="200"/>
+				</columns>
+				<relationships/>
+				<cleansingOperation class="com.ataccama.nme.dqc.operations.CleansingPlan" planFileName="../engine/trans/rd_ico/rd_ico_clean.comp"/>
+			</entity>
+		</entities>
+		<sourceSystems>
+			<system name="txt">
+				<instanceMappings>
+					<originId entity="partner_i" name="txt#i_partner#partner_i"/>
+					<originId entity="rd_ico" name="txt#rd_partner#rd_ico"/>
+				</instanceMappings>
+			</system>
+		</sourceSystems>
+	</instanceLayer>
+	<masterLayers>
+		<masterLayer name="master_partner">
+			<entities>
+				<entity class="com.ataccama.nme.engine.model.PersistentMasterEntity" groupingColumn="master_id" instanceEntity="partner_i" name="partner">
+					<columns>
+						<column name="source_id" type="string" size="200"/>
+						<column name="cmo_ico" type="string" size="200"/>
+						<column name="cmo_zisk" type="string" size="200"/>
+						<column name="cmo_adresa" type="string" size="200"/>
+						<column name="cmo_jmeno" type="string" size="200"/>
+					</columns>
+					<relationships/>
+					<mergingOperation class="com.ataccama.nme.dqc.operations.MergingPlan" customActivityTracking="false" planFileName="../engine/trans/partner_i/master_partner_partner_merge.comp"/>
+				</entity>
+			</entities>
+		</masterLayer>
+	</masterLayers>
+	<eventHandlersConfigFile>nme-event_handler.gen.xml</eventHandlersConfigFile>
+</model>

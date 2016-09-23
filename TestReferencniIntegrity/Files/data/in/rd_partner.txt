@@ -1,0 +1,7 @@
+"ICO","Name","Address"
+111111,"Kooperativa","Karlinske namesti"
+222222,"Adastra GROUP a.s.","Rohanske nabrezi"
+333333,"Apple Computers inc","Kalifornie Palo Alto"
+444444,"Komercni banka","Zizkov"
+555555,"Fio banka","Stare mesto"
+666666,"J&T Banka a.s","Brno"

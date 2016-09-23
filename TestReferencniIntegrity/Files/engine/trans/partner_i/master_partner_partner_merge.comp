@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config xmlns:comm="http://www.ataccama.com/purity/comment" version="10.5.0.ga-2016-06-24">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Alter Format) --><step id="Alter Format" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" mode="NORMAL">
+		<properties>
+			<addedColumns>
+				<addedColumn expression="source_id" name="cmo_id" type="STRING"/>
+				<addedColumn expression="jmeno" name="cmo_jmeno" type="STRING"/>
+				<addedColumn expression="adresa" name="cmo_adresa" type="STRING"/>
+				<addedColumn expression="src_zisk" name="cmo_zisk" type="STRING"/>
+				<addedColumn expression="ico" name="cmo_ico" type="STRING"/>
+			</addedColumns>
+			<removedColumns/>
+		</properties>
+		<visual-constraints bounds="216,240,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Alter Format" endpoint="out"/>
+		<target step="Representative Creator" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (MERGE_Vystup) --><step id="MERGE_Vystup" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../../../data/out/match_partner_out.txt" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn expression="id" name="id"/>
+				<textWriterColumn expression="master_id" name="master_id"/>
+				<textWriterColumn expression="source_id" name="source_id"/>
+				<textWriterColumn expression="ico" name="ico"/>
+				<textWriterColumn expression="src_zisk" name="src_zisk"/>
+				<textWriterColumn expression="jmeno" name="jmeno"/>
+				<textWriterColumn expression="adresa" name="adresa"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="336,552,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Multiplicator) --><step id="Multiplicator" className="com.ataccama.dqc.tasks.flow.Multiplicator" disabled="false" mode="NORMAL">
+		<properties/>
+		<visual-constraints bounds="216,456,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Multiplicator" endpoint="out"/>
+		<target step="MERGE_Vystup" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Multiplicator" endpoint="out"/>
+		<target step="out" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Representative Creator) --><step id="Representative Creator" className="com.ataccama.dqc.tasks.identify.bob.RepresentativeCreator" disabled="false" mode="NORMAL">
+		<properties>
+			<groupingStrategy class="com.ataccama.dqc.tasks.common.group.KeyGroupingStrategy">
+				<groupBy>
+					<keyComponent expression="master_id"/>
+				</groupBy>
+			</groupingStrategy>
+			<rules>
+				<rule>
+					<attributeSets>
+						<attributeSetCfg>
+							<instanceAttributes>
+								<attributeCfgInst expression="best.cmo_ico" name="cmo_ico"/>
+							</instanceAttributes>
+							<representativeAttributes>
+								<attributeCfgRepr expression="best.id" name="id"/>
+								<attributeCfgRepr expression="best.master_id" name="master_id"/>
+								<attributeCfgRepr expression="best.source_id" name="source_id"/>
+								<attributeCfgRepr expression="best.ico" name="ico"/>
+								<attributeCfgRepr expression="best.src_zisk" name="src_zisk"/>
+								<attributeCfgRepr expression="best.std_zisk" name="std_zisk"/>
+								<attributeCfgRepr expression="best.cio_zisk" name="cio_zisk"/>
+								<attributeCfgRepr expression="best.mat_ico" name="mat_ico"/>
+								<attributeCfgRepr expression="best.jmeno" name="jmeno"/>
+								<attributeCfgRepr expression="best.adresa" name="adresa"/>
+								<attributeCfgRepr expression="best.cmo_id" name="cmo_id"/>
+								<attributeCfgRepr expression="best.cmo_jmeno" name="cmo_jmeno"/>
+								<attributeCfgRepr expression="best.cmo_adresa" name="cmo_adresa"/>
+								<attributeCfgRepr expression="best.cmo_zisk" name="cmo_zisk"/>
+								<attributeCfgRepr expression="best.cmo_ico" name="cmo_ico"/>
+							</representativeAttributes>
+							<selectionRules/>
+						</attributeSetCfg>
+					</attributeSets>
+				</rule>
+			</rules>
+		</properties>
+		<visual-constraints bounds="216,360,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Representative Creator" endpoint="out_merged"/>
+		<target step="Multiplicator" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (in) --><step id="in" className="com.ataccama.dqc.tasks.common.usersteps.io.InputStep" disabled="false" mode="NORMAL">
+		<properties>
+			<columns>
+				<columnDef name="id" type="LONG"/>
+				<columnDef name="eng_source_timestamp" type="DATETIME"/>
+				<columnDef name="eng_active" type="BOOLEAN"/>
+				<columnDef name="eng_origin" type="STRING"/>
+				<columnDef name="eng_source_system" type="STRING"/>
+				<columnDef name="eng_last_update_date" type="DATETIME"/>
+				<columnDef name="eng_last_source_update_date" type="DATETIME"/>
+				<columnDef name="eng_creation_date" type="DATETIME"/>
+				<columnDef name="eng_deletion_date" type="DATETIME"/>
+				<columnDef name="eng_activation_date" type="DATETIME"/>
+				<columnDef name="eng_deactivation_date" type="DATETIME"/>
+				<columnDef name="master_id" type="LONG"/>
+				<columnDef name="isolate_flag" type="BOOLEAN"/>
+				<columnDef name="source_id" type="STRING"/>
+				<columnDef name="ico" type="STRING"/>
+				<columnDef name="src_zisk" type="STRING"/>
+				<columnDef name="std_zisk" type="STRING"/>
+				<columnDef name="cio_zisk" type="STRING"/>
+				<columnDef name="mat_ico" type="STRING"/>
+				<columnDef name="jmeno" type="STRING"/>
+				<columnDef name="adresa" type="STRING"/>
+				<columnDef name="eng_change_type" type="STRING"/>
+				<columnDef name="eng_activity_change_type" type="STRING"/>
+			</columns>
+			<shadowColumns/>
+			<comm:comment>DO NOT ALTER! This step was automatically generated from the model. Your changes will be discarded when you re-generate this plan!</comm:comment>
+		</properties>
+		<visual-constraints bounds="216,144,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="in" endpoint="out"/>
+		<target step="Alter Format" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (out) --><step id="out" className="com.ataccama.dqc.tasks.common.usersteps.io.OutputStep" disabled="false" mode="NORMAL">
+		<properties>
+			<requiredColumns>
+				<requiredColumn name="id" type="LONG"/>
+				<requiredColumn name="source_id" type="STRING"/>
+				<requiredColumn name="cmo_ico" type="STRING"/>
+				<requiredColumn name="cmo_zisk" type="STRING"/>
+				<requiredColumn name="cmo_adresa" type="STRING"/>
+				<requiredColumn name="cmo_jmeno" type="STRING"/>
+			</requiredColumns>
+			<comm:comment>DO NOT ALTER! This step was automatically generated from the model. Your changes will be discarded when you re-generate this plan!</comm:comment>
+		</properties>
+		<visual-constraints bounds="96,552,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<modelComment bounds="68,20,926,125" borderColor="183,183,0" backgroundColor="255,255,180" foregroundColor="51,51,51">Please insert Representative Creator step and use setting below for mentioned attributes 
+•	Always use out_merged endpoint of the step
+•	master_id grouping column has to be used as the Representative Creator Grouping Strategy (Key) (master_id grouping column related record descriptor can be used instead)
+•	Add Rule then define Attribute Set (one or more sets)
+•	Define Representative Attributes  along  out endpoint definition 
+•	id column has to be always populated by master_id</modelComment>
+
+</purity-config>

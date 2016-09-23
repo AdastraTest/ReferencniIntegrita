@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config xmlns:comm="http://www.ataccama.com/purity/comment" version="10.5.0.ga-2016-06-24">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Matching) --><step id="Matching" className="com.ataccama.mdu.MdUnify" disabled="false" mode="NORMAL">
+		<properties>
+			<keeperSelectionRule/>
+			<matchFunctions/>
+			<matchingMeasures/>
+			<partitions>
+				<mduPartition>
+					<keeperSelectionRule/>
+					<rules>
+						<mduKeyRule noEmptyComponent="false">
+							<components>
+								<unionKeyComponent expression="mat_ico" behaveAsSet="false" separator=" ">
+									<comm:comment>Zhoda v ICO</comm:comment>
+								</unionKeyComponent>
+							</components>
+							<matchingRules/>
+							<comm:comment>Zhoda v ICO</comm:comment>
+						</mduKeyRule>
+					</rules>
+				</mduPartition>
+			</partitions>
+		</properties>
+		<visual-constraints bounds="264,552,48,48" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Matching" endpoint="out"/>
+		<target step="counter_partner_i_match_out" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Matching Values) --><step id="Matching Values" className="com.ataccama.dqc.tasks.clean.MatchingValues" disabled="false" mode="NORMAL">
+		<properties>
+			<columns>
+				<matchingColumn expression="ico" name="mat_ico">
+					<generator doRemoveRepeatedChars="false" doSqueezeWS="true" supportedCharacters="[:digit:]" doRemoveDia="true" doUpperCase="false"/>
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="MV_CHANGED" explain="true" key="MV_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</matchingColumn>
+			</columns>
+		</properties>
+		<visual-constraints bounds="264,456,48,48" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Matching Values" endpoint="out"/>
+		<target step="Matching" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Multiplicator) --><step id="Multiplicator" className="com.ataccama.dqc.tasks.flow.Multiplicator" disabled="false" mode="NORMAL">
+		<properties/>
+		<visual-constraints bounds="264,720,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Multiplicator" endpoint="out"/>
+		<target step="out" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Multiplicator" endpoint="out"/>
+		<target step="out 2" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (counter_partner_i_match_in) --><step id="counter_partner_i_match_in" className="com.ataccama.dqc.tasks.flow.RecordCounter" disabled="false" mode="NORMAL">
+		<properties reportPerfPerBatch="true" append="true" reportFileName="\\logger" timeStampFormat="yyyy-MM-dd HH:mm:ss" batchSize="100000" reportPerfPerSecond="true">
+			<comm:comment>DO NOT ALTER! This step was automatically generated from the model. Your changes will be discarded when you re-generate this plan!</comm:comment>
+		</properties>
+		<visual-constraints bounds="264,360,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="counter_partner_i_match_in" endpoint="out"/>
+		<target step="Matching Values" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (counter_partner_i_match_out) --><step id="counter_partner_i_match_out" className="com.ataccama.dqc.tasks.flow.RecordCounter" disabled="false" mode="NORMAL">
+		<properties reportPerfPerBatch="true" append="true" reportFileName="\\logger" timeStampFormat="yyyy-MM-dd HH:mm:ss" batchSize="100000" reportPerfPerSecond="true">
+			<comm:comment>DO NOT ALTER! This step was automatically generated from the model. Your changes will be discarded when you re-generate this plan!</comm:comment>
+		</properties>
+		<visual-constraints bounds="264,648,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="counter_partner_i_match_out" endpoint="out"/>
+		<target step="Multiplicator" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (in) --><step id="in" className="com.ataccama.dqc.tasks.common.usersteps.io.InputStep" disabled="false" mode="NORMAL">
+		<properties>
+			<columns>
+				<columnDef name="id" type="LONG"/>
+				<columnDef name="eng_source_timestamp" type="DATETIME"/>
+				<columnDef name="eng_active" type="BOOLEAN"/>
+				<columnDef name="eng_origin" type="STRING"/>
+				<columnDef name="eng_source_system" type="STRING"/>
+				<columnDef name="eng_last_update_date" type="DATETIME"/>
+				<columnDef name="eng_last_source_update_date" type="DATETIME"/>
+				<columnDef name="eng_creation_date" type="DATETIME"/>
+				<columnDef name="eng_deletion_date" type="DATETIME"/>
+				<columnDef name="eng_activation_date" type="DATETIME"/>
+				<columnDef name="eng_deactivation_date" type="DATETIME"/>
+				<columnDef name="source_id" type="STRING"/>
+				<columnDef name="ico" type="STRING"/>
+				<columnDef name="src_zisk" type="STRING"/>
+				<columnDef name="std_zisk" type="STRING"/>
+				<columnDef name="cio_zisk" type="STRING"/>
+				<columnDef name="master_id" type="LONG"/>
+				<columnDef name="eng_external_record" type="BOOLEAN"/>
+				<columnDef name="eng_change_type" type="STRING"/>
+				<columnDef name="eng_activity_change_type" type="STRING"/>
+				<columnDef name="isolate_flag" type="BOOLEAN"/>
+				<columnDef name="mat_ico" type="STRING"/>
+				<columnDef name="rematch_flag" type="BOOLEAN"/>
+			</columns>
+			<shadowColumns/>
+			<comm:comment>DO NOT ALTER! This step was automatically generated from the model. Your changes will be discarded when you re-generate this plan!</comm:comment>
+		</properties>
+		<visual-constraints bounds="264,264,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="in" endpoint="out"/>
+		<target step="counter_partner_i_match_in" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (out) --><step id="out" className="com.ataccama.dqc.tasks.common.usersteps.io.OutputStep" disabled="false" mode="NORMAL">
+		<properties>
+			<requiredColumns>
+				<requiredColumn name="id" type="LONG"/>
+				<requiredColumn name="master_id" type="LONG"/>
+				<requiredColumn name="isolate_flag" type="BOOLEAN"/>
+				<requiredColumn name="mat_ico" type="STRING"/>
+			</requiredColumns>
+			<comm:comment>DO NOT ALTER! This step was automatically generated from the model. Your changes will be discarded when you re-generate this plan!</comm:comment>
+		</properties>
+		<visual-constraints bounds="168,864,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (out 2) --><step id="out 2" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../../../data/out/match_partner_out.txt" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="384,864,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<modelComment bounds="58,10,913,169" borderColor="183,183,0" backgroundColor="255,255,180" foregroundColor="51,51,51">Please insert Matching step and follow the instructions below:
+•	Almost all Column Bindings are used according to the Match operation definition of this entity in the Logical Model/Instance Model.
+•	It is recommended to choose the appropriate column and map it to the Rule Name (e.g. rule_name) on the Column Bindings tab in the Matching step. 
+Warning: there shouldn’t be any aggregation logic used
+</modelComment>
+
+</purity-config>

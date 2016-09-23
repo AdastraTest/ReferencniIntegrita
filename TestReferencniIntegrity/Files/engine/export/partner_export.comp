@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config xmlns:comm="http://www.ataccama.com/purity/comment" version="10.5.0">
+	<step id="partner_i" className="com.ataccama.dqc.tasks.common.usersteps.io.InputStep" disabled="false" mode="NORMAL">
+		<properties>
+			<columns>
+				<columnDef name="id" type="LONG"/>
+				<columnDef name="eng_source_timestamp" type="DATETIME"/>
+				<columnDef name="eng_active" type="BOOLEAN"/>
+				<columnDef name="eng_origin" type="STRING"/>
+				<columnDef name="eng_source_system" type="STRING"/>
+				<columnDef name="eng_last_update_date" type="DATETIME"/>
+				<columnDef name="eng_last_source_update_date" type="DATETIME"/>
+				<columnDef name="eng_creation_date" type="DATETIME"/>
+				<columnDef name="eng_deletion_date" type="DATETIME"/>
+				<columnDef name="eng_activation_date" type="DATETIME"/>
+				<columnDef name="eng_deactivation_date" type="DATETIME"/>
+				<columnDef name="source_id" type="STRING"/>
+				<columnDef name="src_zisk" type="STRING"/>
+				<columnDef name="std_zisk" type="STRING"/>
+				<columnDef name="jmeno" type="STRING"/>
+				<columnDef name="adresa" type="STRING"/>
+			</columns>
+			<shadowColumns/>
+			<comm:comment>DO NOT ALTER! This step was automatically generated from the model. Your changes will be discarded when you re-generate this plan!</comm:comment>
+		</properties>
+	</step>
+	<step id="rd_ico" className="com.ataccama.dqc.tasks.common.usersteps.io.InputStep" disabled="false" mode="NORMAL">
+		<properties>
+			<columns>
+				<columnDef name="id" type="LONG"/>
+				<columnDef name="eng_source_timestamp" type="DATETIME"/>
+				<columnDef name="eng_active" type="BOOLEAN"/>
+				<columnDef name="eng_origin" type="STRING"/>
+				<columnDef name="eng_source_system" type="STRING"/>
+				<columnDef name="eng_last_update_date" type="DATETIME"/>
+				<columnDef name="eng_last_source_update_date" type="DATETIME"/>
+				<columnDef name="eng_creation_date" type="DATETIME"/>
+				<columnDef name="eng_deletion_date" type="DATETIME"/>
+				<columnDef name="eng_activation_date" type="DATETIME"/>
+				<columnDef name="eng_deactivation_date" type="DATETIME"/>
+				<columnDef name="source_id" type="STRING"/>
+				<columnDef name="src_jmeno" type="STRING"/>
+				<columnDef name="std_jmeno" type="STRING"/>
+				<columnDef name="src_adresa" type="STRING"/>
+				<columnDef name="std_adresa" type="STRING"/>
+			</columns>
+			<shadowColumns/>
+			<comm:comment>DO NOT ALTER! This step was automatically generated from the model. Your changes will be discarded when you re-generate this plan!</comm:comment>
+		</properties>
+	</step>
+</purity-config>

@@ -1,0 +1,4 @@
+"id";"master_id";"source_id";"ico";"src_zisk";"jmeno";"adresa"
+1005;1030;"2";"222222";"1500000";"Adastra GROUP a.s.";"Rohanske nabrezi"
+1008;1033;"5";"555555";"1500000";"Fio banka";"Stare mesto"
+1009;1034;"6";"666666";"99999999";"J&T Banka a.s";"Brno"

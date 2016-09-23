@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<batch>
+	<loadOperations>
+		<op class="com.ataccama.nme.engine.batch.FullLoadBatchOperation" name="txt_full" sourceSystem="txt" sourceDeletionStrategy="deactivate">
+			<dataProvider class="com.ataccama.nme.dqc.batch.PlanBatchDataSource" planFileName="../engine/load/txt_full.comp"/>
+			<importAllEntities>true</importAllEntities>
+		</op>
+	</loadOperations>
+	<exportOperations/>
+</batch>
