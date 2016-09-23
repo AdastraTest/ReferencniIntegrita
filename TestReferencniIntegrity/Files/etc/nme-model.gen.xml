@@ -10,18 +10,23 @@
 					<column name="cio_zisk" origin="clean" type="string" size="200"/>
 					<column name="mat_ico" origin="match" type="string" size="200"/>
 					<column name="jmeno" origin="copy_match" type="string" size="200">
-						<valueSource columnName="src_jmeno" relationshipName="new_relationship">
+						<valueSource columnName="src_jmeno" relationshipName="obohaceni">
 							<aggregation class="com.ataccama.nme.engine.model.FirstValue"/>
 						</valueSource>
 					</column>
 					<column name="adresa" origin="copy_match" type="string" size="200">
-						<valueSource columnName="src_adresa" relationshipName="new_relationship">
+						<valueSource columnName="src_adresa" relationshipName="obohaceni">
+							<aggregation class="com.ataccama.nme.engine.model.FirstValue"/>
+						</valueSource>
+					</column>
+					<column name="ref_data" origin="copy_match" type="string" size="200">
+						<valueSource columnName="source_id" relationshipName="obohaceni">
 							<aggregation class="com.ataccama.nme.engine.model.FirstValue"/>
 						</valueSource>
 					</column>
 				</columns>
 				<relationships>
-					<rel foreignKeyColumn="ico" name="new_relationship" parentColumn="source_id" parentEntity="rd_ico" reverseName="rev_new_relationship">
+					<rel foreignKeyColumn="ico" name="obohaceni" parentColumn="source_id" parentEntity="rd_ico" reverseName="rev_obohaceni">
 						<type class="com.ataccama.nme.engine.model.CrossSystemRelationship"/>
 					</rel>
 				</relationships>
@@ -52,7 +57,11 @@
 			<system name="txt">
 				<instanceMappings>
 					<originId entity="partner_i" name="txt#i_partner#partner_i"/>
-					<originId entity="rd_ico" name="txt#rd_partner#rd_ico"/>
+				</instanceMappings>
+			</system>
+			<system name="ref">
+				<instanceMappings>
+					<originId entity="rd_ico" name="ref#rd_partner#rd_ico"/>
 				</instanceMappings>
 			</system>
 		</sourceSystems>
@@ -62,11 +71,11 @@
 			<entities>
 				<entity class="com.ataccama.nme.engine.model.PersistentMasterEntity" groupingColumn="master_id" instanceEntity="partner_i" name="partner">
 					<columns>
-						<column name="source_id" type="string" size="200"/>
-						<column name="cmo_ico" type="string" size="200"/>
+						<column name="ico" type="string" size="200"/>
 						<column name="cmo_zisk" type="string" size="200"/>
 						<column name="cmo_adresa" type="string" size="200"/>
 						<column name="cmo_jmeno" type="string" size="200"/>
+						<column name="cmo_ref_data" type="string" size="200"/>
 					</columns>
 					<relationships/>
 					<mergingOperation class="com.ataccama.nme.dqc.operations.MergingPlan" customActivityTracking="false" planFileName="../engine/trans/partner_i/master_partner_partner_merge.comp"/>

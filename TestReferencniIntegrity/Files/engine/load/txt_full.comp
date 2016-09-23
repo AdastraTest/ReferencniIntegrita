@@ -21,22 +21,6 @@
 
 
 
-<!-- (SRC_rd_ico) --><step id="SRC_rd_ico" className="com.ataccama.dqc.tasks.flow.RecordCounter" disabled="false" mode="BYPASS">
-		<properties reportPerfPerBatch="true" append="true" reportFileName="\\logger" timeStampFormat="yyyy-MM-dd HH:mm:ss" batchSize="100000" reportPerfPerSecond="true">
-			<comm:comment>DO NOT ALTER! This step was automatically generated from the model. Your changes will be discarded when you re-generate this plan!</comm:comment>
-		</properties>
-		<visual-constraints bounds="696,552,-1,-1" layout="vertical"/>
-	</step>
-	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
-		<source step="SRC_rd_ico" endpoint="out"/>
-		<target step="rd_ico" endpoint="in"/>
-		<visual-constraints>
-			<bendpoints/>
-		</visual-constraints>
-	</connection>
-
-
-
 <!-- (i_partner) --><step id="i_partner" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
 		<properties stringQualifier="" lineSeparator="\r\n" fieldSeparator="," lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../../data/in/i_partner.txt" encoding="ISO-8859-1" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="">
 			<columns>
@@ -89,26 +73,6 @@
 
 
 
-<!-- (map_internal_columns_from_rd_partner_to_rd_ico) --><step id="map_internal_columns_from_rd_partner_to_rd_ico" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" mode="NORMAL">
-		<properties>
-			<addedColumns>
-				<addedColumn expression="&#39;txt#rd_partner#rd_ico&#39;" name="origin" type="STRING"/>
-			</addedColumns>
-			<removedColumns/>
-			<comm:comment>DO NOT ALTER! This step was automatically generated from the model. Your changes will be discarded when you re-generate this plan!</comm:comment>
-		</properties>
-		<visual-constraints bounds="696,312,-1,-1" layout="vertical"/>
-	</step>
-	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
-		<source step="map_internal_columns_from_rd_partner_to_rd_ico" endpoint="out"/>
-		<target step="map_rd_ico_source_columns" endpoint="in"/>
-		<visual-constraints>
-			<bendpoints/>
-		</visual-constraints>
-	</connection>
-
-
-
 <!-- (map_partner_i_source_columns) --><step id="map_partner_i_source_columns" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" mode="NORMAL">
 		<properties>
 			<addedColumns>
@@ -132,29 +96,6 @@
 
 
 
-<!-- (map_rd_ico_source_columns) --><step id="map_rd_ico_source_columns" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" mode="NORMAL">
-		<properties>
-			<addedColumns>
-				<addedColumn expression="ICO" name="source_id" type="STRING"/>
-				<addedColumn expression="Name" name="src_jmeno" type="STRING"/>
-				<addedColumn expression="Address" name="src_adresa" type="STRING"/>
-				<addedColumn name="source_timestamp" type="DATETIME"/>
-			</addedColumns>
-			<removedColumns/>
-			<comm:comment>BE CAREFUL WHEN EDITING! This step was automatically pre-generated from the model. Your are allowed to complete the attribute mapping on Added Columns tab only (i.e. fill the Expression column in). This content will be preserved even if listed attributes changed. Other changes will be discarded.</comm:comment>
-		</properties>
-		<visual-constraints bounds="696,408,-1,-1" layout="vertical"/>
-	</step>
-	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
-		<source step="map_rd_ico_source_columns" endpoint="out"/>
-		<target step="SRC_rd_ico" endpoint="in"/>
-		<visual-constraints>
-			<bendpoints/>
-		</visual-constraints>
-	</connection>
-
-
-
 <!-- (partner_i) --><step id="partner_i" className="com.ataccama.dqc.tasks.common.usersteps.io.OutputStep" disabled="false" mode="NORMAL">
 		<properties>
 			<requiredColumns>
@@ -168,54 +109,6 @@
 		</properties>
 		<visual-constraints bounds="360,624,-1,-1" layout="vertical"/>
 	</step>
-
-
-
-<!-- (rd_ico) --><step id="rd_ico" className="com.ataccama.dqc.tasks.common.usersteps.io.OutputStep" disabled="false" mode="NORMAL">
-		<properties>
-			<requiredColumns>
-				<requiredColumn name="source_id" type="STRING"/>
-				<requiredColumn name="origin" type="STRING"/>
-				<requiredColumn name="source_timestamp" type="DATETIME"/>
-				<requiredColumn name="src_jmeno" type="STRING"/>
-				<requiredColumn name="src_adresa" type="STRING"/>
-			</requiredColumns>
-			<comm:comment>DO NOT ALTER! This step was automatically generated from the model. Your changes will be discarded when you re-generate this plan!</comm:comment>
-		</properties>
-		<visual-constraints bounds="696,624,-1,-1" layout="vertical"/>
-	</step>
-
-
-
-<!-- (rd_partner) --><step id="rd_partner" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
-		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator="," lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../../data/in/rd_partner.txt" encoding="ISO-8859-1" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
-			<columns>
-				<textReaderColumn name="ICO" type="STRING" ignore="false"/>
-				<textReaderColumn name="Name" type="STRING" ignore="false"/>
-				<textReaderColumn name="Address" type="STRING" ignore="false"/>
-			</columns>
-			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
-			<errorHandlingStrategy rejectFileName="rejected.txt">
-				<errorInstructions>
-					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
-					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
-					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
-					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
-					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
-					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
-				</errorInstructions>
-			</errorHandlingStrategy>
-			<shadowColumns/>
-		</properties>
-		<visual-constraints bounds="696,192,-1,-1" layout="vertical"/>
-	</step>
-	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
-		<source step="rd_partner" endpoint="out"/>
-		<target step="map_internal_columns_from_rd_partner_to_rd_ico" endpoint="in"/>
-		<visual-constraints>
-			<bendpoints/>
-		</visual-constraints>
-	</connection>
 
 
 

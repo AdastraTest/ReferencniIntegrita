@@ -5,6 +5,10 @@
 			<dataProvider class="com.ataccama.nme.dqc.batch.PlanBatchDataSource" planFileName="../engine/load/txt_full.comp"/>
 			<importAllEntities>true</importAllEntities>
 		</op>
+		<op class="com.ataccama.nme.engine.batch.FullLoadBatchOperation" name="ref_full" sourceSystem="ref" sourceDeletionStrategy="deactivate">
+			<dataProvider class="com.ataccama.nme.dqc.batch.PlanBatchDataSource" planFileName="../engine/load/ref_full.comp"/>
+			<importAllEntities>true</importAllEntities>
+		</op>
 	</loadOperations>
 	<exportOperations/>
 </batch>

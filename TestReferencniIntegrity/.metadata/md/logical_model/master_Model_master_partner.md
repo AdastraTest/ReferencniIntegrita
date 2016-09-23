@@ -6,11 +6,12 @@
 		<masterTable name="partner" elemId="11080" label="" entityRole="golden" instanceTable="partner_i" topLevel="true">
 			<description></description>
 			<columns>
-				<column isCmo="false" refData="" isPk="true" isFk="false" description="" name="source_id" elemId="11188" label="" type="string" size="200"/>
-				<column isCmo="true" refData="" isPk="false" isFk="false" description="" name="ICO" elemId="11189" label="" type="string" size="200"/>
+				<column isCmo="false" refData="" isPk="true" isFk="false" description="" name="id" elemId="11188" label="" type="long_int" size=""/>
+				<column isCmo="false" refData="" isPk="false" isFk="true" description="" name="ICO" elemId="11189" label="" type="string" size="200"/>
 				<column isCmo="true" refData="" isPk="false" isFk="false" description="" name="zisk" elemId="11190" label="" type="string" size="200"/>
 				<column isCmo="true" refData="" isPk="false" isFk="false" description="" name="Adresa" elemId="12829" label="" type="string" size="200"/>
 				<column isCmo="true" refData="" isPk="false" isFk="false" description="" name="Jmeno" elemId="12830" label="" type="string" size="200"/>
+				<column isCmo="true" refData="" isPk="false" isFk="false" description="" name="ref_data" elemId="7063" label="" type="string" size="200"/>
 			</columns>
 			<guiTab>
 				<reduceES allColumns="true">

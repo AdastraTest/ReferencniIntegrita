@@ -3,7 +3,6 @@
 	<item path="/systems[0]/model">
 		<positions>
 			<item id="8481" value="122,84,100,-1"/>
-			<item id="8510" value="353,83,100,-1"/>
 		</positions>
 	</item>
 	<item path="/logicalModel/instanceModel">
@@ -16,6 +15,11 @@
 	<item path="/logicalModel/masterModels[0]">
 		<positions>
 			<item id="11080" value="255,91,100,-1"/>
+		</positions>
+	</item>
+	<item path="/systems[1]/model">
+		<positions>
+			<item id="5148" value="377,107,100,45"/>
 		</positions>
 	</item>
 </root>

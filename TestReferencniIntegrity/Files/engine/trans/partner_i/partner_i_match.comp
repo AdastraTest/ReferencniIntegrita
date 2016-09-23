@@ -20,7 +20,13 @@
 									<comm:comment>Zhoda v ICO</comm:comment>
 								</unionKeyComponent>
 							</components>
-							<matchingRules/>
+							<matchingRules>
+								<mduMatchRule name="ico">
+									<tests>
+										<mduMatchTest column="ico" relative="false" function="equality"/>
+									</tests>
+								</mduMatchRule>
+							</matchingRules>
 							<comm:comment>Zhoda v ICO</comm:comment>
 						</mduKeyRule>
 					</rules>

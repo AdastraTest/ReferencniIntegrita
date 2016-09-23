@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <instanceModel>
 	<relationships>
-		<relationship parentRole="" name="new_relationship" elemId="6120" childRole="" type="Cross System" parentTable="rd_ico" childTable="partner_i">
+		<relationship parentRole="" name="obohaceni" elemId="6120" childRole="" type="Cross System" parentTable="rd_ico" childTable="partner_i">
 			<description></description>
 			<childToParent/>
 			<parentToChild>
@@ -9,6 +9,9 @@
 					<filterExpression></filterExpression>
 				</column>
 				<column source="src_adresa" name="Adresa" elemId="7431" type="string" size="200" createInto="master_partner_partner_merge">
+					<filterExpression></filterExpression>
+				</column>
+				<column source="source_id" name="Ref_data" elemId="7231" type="string" size="200" createInto="master_partner_partner_merge">
 					<filterExpression></filterExpression>
 				</column>
 			</parentToChild>

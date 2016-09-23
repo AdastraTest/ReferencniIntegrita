@@ -3,6 +3,7 @@
 	<settings ame:include="md/settings.md"/>
 	<systems>
 		<system ame:include="md/connected_systems/system_txt.md"/>
+		<system ame:include="md/connected_systems/system_ref.md"/>
 	</systems>
 	<logicalModel>
 		<instanceModel ame:include="md/logical_model/instance_model.md"/>
