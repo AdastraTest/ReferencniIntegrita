@@ -5,7 +5,7 @@
 		<propertyMappings/>
 	</component-mappings>
 
-<!-- (Alter Format) --><step id="Alter Format" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" mode="NORMAL">
+<!-- (Alter Format) --><step id="Alter Format" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="true" mode="NORMAL">
 		<properties>
 			<addedColumns>
 				<addedColumn expression="source_id" name="cmo_id" type="STRING"/>
@@ -16,15 +16,8 @@
 			</addedColumns>
 			<removedColumns/>
 		</properties>
-		<visual-constraints bounds="216,240,-1,-1" layout="vertical"/>
+		<visual-constraints bounds="360,240,-1,-1" layout="vertical"/>
 	</step>
-	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
-		<source step="Alter Format" endpoint="out"/>
-		<target step="Representative Creator" endpoint="in"/>
-		<visual-constraints>
-			<bendpoints/>
-		</visual-constraints>
-	</connection>
 
 
 
@@ -78,25 +71,14 @@
 				<rule>
 					<attributeSets>
 						<attributeSetCfg>
-							<instanceAttributes>
-								<attributeCfgInst expression="best.cmo_ico" name="cmo_ico"/>
-							</instanceAttributes>
+							<instanceAttributes/>
 							<representativeAttributes>
-								<attributeCfgRepr expression="best.id" name="id"/>
 								<attributeCfgRepr expression="best.master_id" name="master_id"/>
 								<attributeCfgRepr expression="best.source_id" name="source_id"/>
 								<attributeCfgRepr expression="best.ico" name="ico"/>
 								<attributeCfgRepr expression="best.src_zisk" name="src_zisk"/>
-								<attributeCfgRepr expression="best.std_zisk" name="std_zisk"/>
-								<attributeCfgRepr expression="best.cio_zisk" name="cio_zisk"/>
-								<attributeCfgRepr expression="best.mat_ico" name="mat_ico"/>
 								<attributeCfgRepr expression="best.jmeno" name="jmeno"/>
 								<attributeCfgRepr expression="best.adresa" name="adresa"/>
-								<attributeCfgRepr expression="best.cmo_id" name="cmo_id"/>
-								<attributeCfgRepr expression="best.cmo_jmeno" name="cmo_jmeno"/>
-								<attributeCfgRepr expression="best.cmo_adresa" name="cmo_adresa"/>
-								<attributeCfgRepr expression="best.cmo_zisk" name="cmo_zisk"/>
-								<attributeCfgRepr expression="best.cmo_ico" name="cmo_ico"/>
 							</representativeAttributes>
 							<selectionRules/>
 						</attributeSetCfg>
@@ -150,7 +132,7 @@
 	</step>
 	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
 		<source step="in" endpoint="out"/>
-		<target step="Alter Format" endpoint="in"/>
+		<target step="Representative Creator" endpoint="in"/>
 		<visual-constraints>
 			<bendpoints/>
 		</visual-constraints>
